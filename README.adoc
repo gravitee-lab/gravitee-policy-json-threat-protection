@@ -1,0 +1,111 @@
+= JSON Threat Protection Policy
+
+ifdef::env-github[]
+image:https://ci.gravitee.io/buildStatus/icon?job=gravitee-io/gravitee-policy-json-threat-protection/master["Build status", link="https://ci.gravitee.io/job/gravitee-io/job/gravitee-policy-json-threat-protection/"]
+image:https://badges.gitter.im/Join Chat.svg["Gitter", link="https://gitter.im/gravitee-io/gravitee-io?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"]
+endif::[]
+
+== Phase
+
+[cols="2*", options="header"]
+|===
+^|onRequest
+^|onRequestContent
+^.^|
+^.^| X
+
+|===
+
+== Description
+
+The JSON Threat Protection Policy allows validating json request body by applying limits on various JSON structures (arrays, field name, string values, ...).
+When an invalid request is detected (meaning maximum limit is reached), the request will be considered a threat and rejected with a 400 BAD REQUEST.
+
+== Configuration
+
+|===
+|Property |Required |Description |Type| Default
+
+.^|maxEntries
+^.^|
+|Maximum number of entries allowed in an json object. Example: ```{ "a":{ "b":1, "c":2, "d":3 }}```, ```a``` has 3 entries
+^.^|integer (null or -1 to specify no limit)
+|100
+
+.^|maxArraySize
+^.^|
+|Maximum number of elements allowed in an array.
+^.^|integer (null or -1 to specify no limit)
+|100
+
+.^|maxDepth
+^.^|
+|Maximum depth of json structure. Example: ```{ "a":{ "b":{ "c":true }}}```, json has a depth of 3.
+^.^|integer (null or -1 to specify no limit)
+|100
+
+.^|maxNameLength
+^.^|
+|Maximum string length allowed for a json property name.
+^.^|integer (null or -1 to specify no limit)
+|100
+
+.^|maxValueLength
+^.^|
+|Maximum string length allowed for a json property value.
+^.^|integer (null or -1 to specify no limit)
+|500
+
+|===
+
+
+== Http Status Code
+
+|===
+|Code |Message
+
+.^| ```400```
+
+a| In case of:
+
+* Invalid json structure
+* Maximum depth exceeded
+* Maximum json entries exceeded
+* Maximum json array size exceeded
+* Maximum json field name length exceeded
+* Maximum json field value length exceeded
+
+|===
+
+== Errors
+
+If you're looking to override the default response provided by the policy, you can do it
+thanks to the response templates feature. These templates must be define at the API level (see `Response Templates`
+from the `Proxy` menu).
+
+Here are the error keys send by this policy:
+
+[cols="2*", options="header"]
+|===
+^|Key
+^|Parameters
+
+.^|JSON_THREAT_DETECTED
+^.^|-
+
+.^|JSON_THREAT_MAX_DEPTH
+^.^|-
+
+.^|JSON_THREAT_MAX_ENTRIES
+^.^|-
+
+.^|JSON_THREAT_MAX_NAME_LENGTH
+^.^|-
+
+.^|JSON_THREAT_MAX_VALUE_LENGTH
+^.^|-
+
+.^|JSON_MAX_ARRAY_SIZE
+^.^|-
+
+|===

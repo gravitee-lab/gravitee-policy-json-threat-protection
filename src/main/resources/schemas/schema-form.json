@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "id": "urn:jsonschema:io:gravitee:policy:threatprotection:json:JsonThreatProtectionPolicyConfiguration",
+  "properties": {
+    "maxEntries": {
+      "title": "Maximum json object entries",
+      "description": "Maximum number of entries allowed in an json object. Example: <code>{ \"a\":{ \"b\":1, \"c\":2, \"d\":3 }}</code>, \"a\" has 3 entries",
+      "type": [ "integer", "null" ],
+      "default": 100
+    },
+    "maxArraySize": {
+      "title": "Maximum json array size",
+      "description": "Maximum number of elements allowed in an array.",
+      "type": [ "integer", "null" ],
+      "default": 100
+    },
+    "maxDepth": {
+      "title": "Maximum json depth",
+      "description": "Maximum depth of json structure. Example: <code>{ \"a\":{ \"b\":{ \"c\":true }}}</code>, json has a depth of 3.",
+      "type": [ "integer", "null" ],
+      "default": 100
+    },
+    "maxNameLength": {
+      "title": "Maximum json field name length",
+      "description": "Maximum string length allowed for a json property name.",
+      "type": [ "integer", "null" ],
+      "default": 100
+    },
+    "maxValueLength": {
+      "title": "Maximum json field value length",
+      "description": "Maximum string length allowed for a json property value.",
+      "type": [ "integer", "null" ],
+      "default": 500
+    }
+  }
+}
